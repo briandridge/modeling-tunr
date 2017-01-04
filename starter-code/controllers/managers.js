@@ -7,4 +7,35 @@ function index(req, res) {
 	});
 }
 
+function show(req, res) {
+	Manager.findById(req.params.id)
+	.then(function(manager) {
+		if(!manager) console.log("no manager");	
+		res.json(manager);
+	});
+}
+
+function create(req, res) {
+	Manager.create(req.body)
+	.then(function(manager){
+		if(!manager) console.log("no manager");
+	console.log(manager);
+		res.json(manager);
+	});
+}
+
+function update(req, res) {
+	Manager.findById(req.params.id)
+	.then(function(manager) {
+		if(!manager) console.log("no manager");
+		return manager.updateAttributes(req.body);
+	})
+	.then(function(manager) {
+		res.json(manager);
+	});
+}
+
 module.exports.index = index;
+module.exports.show = show;
+module.exports.create = create;
+module.exports.update = update;
